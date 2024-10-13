@@ -1,0 +1,240 @@
+<app-nav></app-nav>
+ 
+<div class="links form">
+    <form action="" >
+     <input type="text" placeholder="Search" [(ngModel)]="_filterText" >
+     <button class="submit" (click)="filter()">Search</button>
+     <!-- <input type="submit" class="submit" value="Send Now"> -->
+    </form>
+ </div>
+ <button class="crud-button" mat-button (click)="openCreateDialog()" >New Busniss Card</button>
+ <button class="crud-button" mat-button (click)="openImportDialog()" >Import CSV/XML File</button>
+  <button class="crud-button" mat-button (click)="openExportDialog()" >Export CSV/XML File</button>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Birth date</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Address</th>
+        <th scope="col">Operations</th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of cards?.cards | filter :_filterText">
+        <th scope="row"> {{c.id}} </th>
+        <td>{{c.name}}</td>
+        <td> {{c.email}} </td>
+        <td> {{c.gender}} </td>
+        <td> {{c.birth | date}} </td>
+
+        <td> {{c.phone}} </td>
+        <td>
+           <img src="../../../assets/Images/{{c.photo}}" width="200px" height="200px" alt=""> </td>
+        <td> {{c.address}} </td>
+
+        <td> 
+ <button class="crud-button" mat-button (click)="openDeleteDialog(c.id)">Delete</button>
+ <button class="crud-button" mat-button (click)="openUpdateDialog(c)">Update</button>
+
+             </td>
+      </tr>
+   
+    </tbody>
+  </table>
+
+<app-foot></app-foot>
+
+
+<ng-template #createDialog class="create-dialog">
+    <h1 style="text-align: center; margin: 0;">Add Busniss Card</h1>
+    <form [formGroup]="createCard" style="width: 50vw; max-height: 72vh; overflow: auto; display: flex; flex-direction: column; align-items: center;">
+  
+     
+          <label>Name</label>
+          <input type="text" [(ngModel)]="checkData.name" formControlName="name"  matInput placeholder="Name">
+      <br>
+  
+     
+          <label>Email </label>
+          <input type="email" [(ngModel)]="checkData.email" formControlName="email"  matInput placeholder="Email">
+
+  <br>
+     
+       <div style="display: flex; flex-direction: column; align-items: center;">
+        <label>Gender</label>
+       <div>
+        <input type="radio" [(ngModel)]="checkData.gender" formControlName="gender" id="male" name="gender" value="m" style="width: 20px; height: 20px;">
+        <label for="male">Male</label>
+        <input type="radio" [(ngModel)]="checkData.gender" formControlName="gender" id="female" name="gender" value="f" style="width: 20px; height: 20px;">
+        <label for="female">Female</label>
+       </div>
+       </div>
+   <br>
+  
+     
+          <label>Birth Date</label>
+          <input type="date" formControlName="birth" [(ngModel)]="checkData.birth"  matInput placeholder="Birth date">
+  <br>
+          <label>Phone</label>
+          <input type="text" formControlName="phone" [(ngModel)]="checkData.phone"  matInput placeholder="Phone">
+  <br>
+  
+  <label>Address</label>
+  <input type="text" formControlName="address" [(ngModel)]="checkData.address"  matInput placeholder="Phone">
+<br>
+
+      
+          <label for="image-upload" class="file-label" style="cursor: pointer;">
+              <i class="fas fa-upload"></i> Upload Image
+              <input type="file" #file accept="image/*" id="image-upload" [(ngModel)]="checkData.photo" formControlName="photo"  (change)="uploadImage(file.files)"  style="display: none;">
+          </label>
+     
+  
+      <div name="button" mat-dialog-actions style="margin-top: 16px;">
+          <button style="background-color: #04aa6d; color: #fff;margin-right: 10px;" (click)="openCheckDialog()"  mat-button [mat-dialog-close]="true">Add</button>
+          <button style="background-color: red; color: #fff;" mat-button mat-dialog-close="no" cdkFocusInitial>Cancel</button>
+      </div>
+  </form>
+  
+  </ng-template>
+
+  <ng-template #checkDialog>
+   <div style="padding: 20px; width: 30vw; height: 40vh; display: flex; flex-direction: column; align-items: center;">
+    <p> Name: {{checkData.name}} </p>
+    <p> Email: {{checkData.email}} </p>
+
+    <p>Gender: {{checkData.gender}} </p>
+    <p>Birth Date: {{checkData.birth}} </p>
+    <p>Phone: {{checkData.phone}} </p>
+    <p>Photo: {{checkData.photo}} </p>
+    <p>Address: {{checkData.address}} </p>
+
+
+   </div>
+   <div name="button" mat-dialog-actions style="margin-top: 16px;">
+    <button style="background-color: #04aa6d; color: #fff;margin-right: 10px;" (click)="createCardService()"  mat-button [mat-dialog-close]="true">Add</button>
+    <button style="background-color: red; color: #fff;" mat-button mat-dialog-close="no" cdkFocusInitial>Cancel</button>
+</div>
+  </ng-template>
+
+  <ng-template #deleteDialog>
+    <h1 mat-dialog-title>Delete Card</h1>
+    <div mat-dialog-content>
+      Would you like to delete this Card?
+    </div>
+    <div mat-dialog-actions>
+      <button style="background-color: red; color: white;" mat-button mat-dialog-close="yes">Delete</button>
+      <button style="background-color: red; color: white;" mat-button mat-dialog-close="no" cdkFocusInitial>Cancel</button>
+    </div>
+    </ng-template>
+    
+    <ng-template #updateDialog class="update-dialog" style="padding: 15px; max-width: 400px; width: 100%;">
+        <h1 style="text-align: center;">Update</h1>
+          <form [formGroup]="updateCard" class="my-form" style="background-color: transparent;margin: 0; padding-right: 25px;width: 600px; height: 70vh; width: 700px; display: flex; flex-direction: column; justify-content: space-between;">
+        
+            <div>
+              <mat-form-field appearance="fill" style="width: 48%;">
+                <label>Name</label>
+                <input type="text" style="width: 100%;" formControlName="name" [(ngModel)]="data.name" matInput placeholder="Name">
+              </mat-form-field>
+        
+              <mat-form-field appearance="fill" style="width: 48%;">
+                <label>Email</label>
+                <input type="email" style="width: 100%;" formControlName="email" [(ngModel)]="data.email" matInput placeholder="Email">
+              </mat-form-field>
+            </div>
+        
+            <div>
+                <mat-form-field appearance="fill" style="width: 48%;">
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <label>Gender</label>
+                   <div style="display: flex; justify-content: center;">
+                    <input type="radio" [(ngModel)]="data.gender" formControlName="gender" id="male" name="gender" value="m" style="width: 20px; height: 20px;">
+                    <label for="male">Male</label>
+                    <input type="radio" [(ngModel)]="data.gender" formControlName="gender" id="female" name="gender" value="f" style="width: 20px; height: 20px;">
+                    <label for="female">Female</label>
+                   </div>
+                   </div>
+                    <!-- <label>Gender</label>
+                <div>
+                 <input type="radio" [(ngModel)]="data.gender" formControlName="gender" id="male" name="gender" value="m" style="width: 20px; height: 20px;">
+                 <label for="male">Male</label>
+                 <input type="radio" [(ngModel)]="data.gender" formControlName="gender" id="female" name="gender" value="f" style="width: 20px; height: 20px;">
+                 <label for="female">Female</label>
+                </div> -->
+                </mat-form-field>
+        
+              <mat-form-field appearance="fill" style="width: 48%;">
+                <label>Birth Date</label> <br>
+                <input type="date" style="width: 100%;" formControlName="birth" [(ngModel)]="data.birth" matInput placeholder="Birth Date">
+              </mat-form-field>
+            </div>
+        
+            <div>
+              <mat-form-field appearance="fill" style="width: 48%; margin-right: 4%;">
+                <label>Phone</label>
+                <input type="text" style="width: 100%;" formControlName="phone" [(ngModel)]="data.phone" matInput placeholder="Phone">
+              </mat-form-field>
+        
+              <mat-form-field appearance="fill" style="width: 48%;">
+                <label>Address</label> <br>
+                <input type="text" style="width: 100%;" formControlName="address" [(ngModel)]="data.address" matInput placeholder="Address">
+              </mat-form-field>
+            </div>
+        
+            
+            
+        
+        
+            <div style="margin-bottom: 10px;">
+              <div class="file-upload">
+                <label for="image-upload" class="file-label" style="cursor: pointer;">
+                  <i class="fas fa-upload"></i> Upload Image
+                </label>
+                <input type="file" #file accept="image/*" id="image-upload" [(ngModel)]="data.photo" formControlName="photo"  (change)="uploadImage(file.files)" style="display: none;">
+              </div>
+            </div>
+        
+            <div style="display: flex; justify-content: center;">
+              <button style="background-color: blue; color: white;" (click)="updateCardBusniss()" mat-button mat-dialog-close="yes">Update</button>
+              <button style="background-color: red; color: white; margin-left: 10px;" mat-button mat-dialog-close="no" cdkFocusInitial>Cancel</button>
+            </div>
+        
+          </form>
+        </ng-template>
+        
+        <ng-template #importDialog>
+         <div style="width: 400px; height: 400px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 20px;">
+          <form action="" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+
+            <div class="file-container">
+              <span *ngIf="!fileSelected">Select file or Drag/Drop</span>
+              <input style="width: 100%; height: 100%;" type="file" #file (change)="uploadFile(file.files)" placeholder="Select file or Drag/Drop"/>
+            </div>
+            <button class="crud-button" style="width: 50%;" (click)="submitFile('csv')">Upload CSV</button>
+          </form>
+          <form action="" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+
+            <div class="file-container">
+              <span *ngIf="!fileSelected">Select file or Drag/Drop</span>
+              <input style="width: 100%; height: 100%;" type="file" #file (change)="uploadFile(file.files)" placeholder="Select file or Drag/Drop"/>
+            </div>
+            <button class="crud-button" style="width: 50%;" (click)="submitFile('xml')">Upload XML</button>
+          </form>
+         </div>
+        </ng-template>
+
+        <ng-template #exportDialog>
+        <div style="width:300px; height: 300px; display: flex; flex-direction: column; align-content: space-between; justify-content: space-around; align-items: center;">
+          <button class="crud-button" style="width: 50%; height: 60px;" (click)="exportFile('csv')">Export To CSV File</button>
+          <button class="crud-button" style="width: 50%; height: 50px;" (click)="exportFile('xml')">Export To XML File</button>
+        </div>
+        </ng-template>

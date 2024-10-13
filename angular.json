@@ -25,9 +25,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "src/assets/homeAssets/bootstrap/css/bootstrap.min.css",
+              "src/assets/homeAssets/assets/css/index.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/homeAssets/assets/js/index.js",
+              "src/assets/homeAssets/bootstrap/js/bootstrap.bundle.min.js"
+
+
+            ]
           },
           "configurations": {
             "production": {
@@ -87,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -94,5 +103,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "8da81208-d603-46f4-a9a4-f350564247f1"
   }
 }

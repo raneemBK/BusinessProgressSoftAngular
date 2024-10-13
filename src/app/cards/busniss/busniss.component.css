@@ -1,0 +1,61 @@
+form{
+    /* background-color: red; */
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    
+}
+.form{
+    /* width: 50ch; */
+    width: 100%;
+    padding-top: 20px;
+    
+}
+form input{
+    padding: 0 1rem;
+    width: 30%;
+    height: 3rem;
+    outline: none !important;
+    border: solid 0;
+    margin-bottom: 0;
+    border-radius: 10px;
+    border: 1px solid rgb(212, 223, 255);
+    box-shadow: 2.5px 4.33px 15px 0px rgba(0, 0, 0, 0.15);
+}
+form .submit{
+    position: absolute;
+    right: 36%;
+    top: 8px;
+    /* bottom: 10px; */
+    border-radius: 10px;
+    background: var(--gradientBlue);
+    z-index: 1;
+    height: 2rem;
+    width: 7rem;
+    color: var(--white);
+    border: none;
+}
+.crud-button{
+    border-radius: 10px;
+    background: var(--gradientBlue);
+    padding: 10px;
+    margin: 10px;
+    color: var(--white) !important;
+    border: none;
+}
+.file-container{
+    width: 100%;
+    height: 100px;
+    border: 1px solid blue;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.file-container input{
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
