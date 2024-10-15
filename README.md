@@ -97,6 +97,9 @@ This project integrates with a backend .NET API. Below are some of the key endpo
   <img src="https://github.com/user-attachments/assets/99672032-1a00-4e51-b0b2-01af9acc2204">
   
 </div>
+
+
 ## Video of project
+
 
 [![Show Video](https://github.com/user-attachments/assets/83814d6d-bb85-4c6d-b40d-3f8b68466f33)](https://github.com/user-attachments/assets/56e5055e-795e-4a8a-a5f0-f7ad28c93e9f)
