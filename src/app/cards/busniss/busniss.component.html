@@ -37,7 +37,10 @@
 
         <td> {{c.phone}} </td>
         <td>
-           <img src="../../../assets//Images/{{c.photo}}" width="200px" height="200px" alt=""> </td>
+          <!-- <img [src]="'https://localhost:7204/api/Bcards/getImage?imagePath='+c.photo" width="200px" height="200px" alt=""> -->
+
+           <img src="../../../assets/Images/{{c.photo}}" width="200px" height="200px" alt=""> 
+          </td>
         <td> {{c.address}} </td>
 
         <td> 
