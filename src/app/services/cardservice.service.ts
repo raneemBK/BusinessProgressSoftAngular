@@ -44,9 +44,11 @@ export class CardserviceService {
 
   showImage:any;
   uploadImage(img: FormData){
-    this.http.post('https://localhost:7204/api/Bcards/uploadImage', img).subscribe((res:any)=>{
+    debugger
+    this.http.post('https://localhost:7204/api/Bcards/uploadImage/', img).subscribe((res:any)=>{
       //console.log(res);
       this.showImage = res.photo;
+      console.log(res)
       console.log(this.showImage)
       //debugger;
     }, err=>{
@@ -81,6 +83,7 @@ export class CardserviceService {
   }
 
   uploadFiles(file: FormData, extension:any){
+    debugger;
     let urlcsv = 'https://localhost:7204/api/Bcards/CreateCardFromCSV';
     let urlxml = 'https://localhost:7204/api/Bcards/InsertCardFromXML';
     if(extension == 'csv'){

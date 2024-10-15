@@ -46,6 +46,7 @@ export class BusnissComponent implements OnInit {
   
 
   uploadImage(file:any){
+    debugger;
     if (file.length == 0){
       return ;
     }
@@ -112,17 +113,32 @@ export class BusnissComponent implements OnInit {
    }
    
 
+// fileSelected: any;
+// uploadFile(file:any){
+//   debugger;
+//   if (file.length == 0){
+//     return ;
+//   }
+//   let fileToUpload = <File>file[0];
+//   const formData = new FormData;
+//   formData.append('file', fileToUpload, fileToUpload.name);
+//   this.fileSelected = formData;
+//   console.log(this.fileSelected)
+// }
 fileSelected: any;
-uploadFile(file:any){
-  if (file.length == 0){
-    return ;
+
+uploadFile(files: any) {
+  debugger;
+  if (files.length === 0) {
+    return;
   }
-  let fileToUpload = <File>file[0];
-  const formData = new FormData;
+  let fileToUpload = <File>files[0];
+  const formData = new FormData();
   formData.append('file', fileToUpload, fileToUpload.name);
   this.fileSelected = formData;
-  console.log(this.fileSelected)
+  console.log(this.fileSelected);
 }
+
 submitFile(extension:any){
   
   this.cards.uploadFiles(this.fileSelected,extension)

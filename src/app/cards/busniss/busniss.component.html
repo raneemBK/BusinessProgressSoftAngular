@@ -37,7 +37,7 @@
 
         <td> {{c.phone}} </td>
         <td>
-           <img src="../../../assets/Images/{{c.photo}}" width="200px" height="200px" alt=""> </td>
+           <img src="../../../assets//Images/{{c.photo}}" width="200px" height="200px" alt=""> </td>
         <td> {{c.address}} </td>
 
         <td> 
@@ -223,10 +223,15 @@
           </form>
           <form action="" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
 
-            <div class="file-container">
+            <!-- <div class="file-container">
               <span *ngIf="!fileSelected">Select file or Drag/Drop</span>
               <input style="width: 100%; height: 100%;" type="file" #file (change)="uploadFile(file.files)" placeholder="Select file or Drag/Drop"/>
+            </div> -->
+            <div class="file-container">
+              <span *ngIf="!fileSelected">Select file or Drag/Drop</span>
+              <input style="width: 100%; height: 100%;" type="file" #fileInput (change)="uploadFile(fileInput.files)" placeholder="Select file or Drag/Drop"/>
             </div>
+            
             <button class="crud-button" style="width: 50%;" (click)="submitFile('xml')">Upload XML</button>
           </form>
          </div>
